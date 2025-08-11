@@ -1,5 +1,18 @@
+const db = require("../db");
+
 function getNewMessageForm(req, res) {
-  res.send("Form got");
+  res.render("form");
 }
 
-module.exports = { getNewMessageForm };
+async function sendMessage(req, res) {
+  const message = {
+    text: req.body.message,
+    user: req.body.user,
+    added: new Date(),
+  };
+
+  await db.addMessage(message);
+  res.redirect("/");
+}
+
+module.exports = { getNewMessageForm, sendMessage };
