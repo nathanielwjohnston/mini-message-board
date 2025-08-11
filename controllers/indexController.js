@@ -6,4 +6,12 @@ async function getIndex(req, res) {
   res.render("index", { messages });
 }
 
-module.exports = { getIndex };
+async function getMessageById(req, res) {
+  const { messageId } = req.params;
+
+  const message = await db.getMessageById(messageId);
+
+  res.render("message", { message });
+}
+
+module.exports = { getIndex, getMessageById };
